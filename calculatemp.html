@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Temperatura Corporal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0fff0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #006400;
+        }
+        .container {
+            background: linear-gradient(135deg, #ffffff, #e6ffe6);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 100, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #008000;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #00a000;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #00c000;
+            box-shadow: 0 0 10px rgba(0, 192, 0, 0.2);
+        }
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #00a000;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        button:hover {
+            background-color: #008000;
+            box-shadow: 0 5px 15px rgba(0, 128, 0, 0.3);
+        }
+        #result {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .back-button {
+            background-color: #4CAF50;
+            width: auto;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Temperatura Corporal</h1>
+        <div class="input-group">
+            <label for="temperature">Temperatura (°C):</label>
+            <input type="number" id="temperature" placeholder="Ingrese su temperatura" step="0.1" min="30" max="45" required>
+        </div>
+        <button onclick="calculateTemperature()">Calcular</button>
+        <div id="result"></div>
+        <button class="back-button" onclick="window.location.href='temperatura.html'">Regresar</button>
+    </div>
+
+    <script>
+        function calculateTemperature() {
+            const temperature = parseFloat(document.getElementById('temperature').value);
+            const result = document.getElementById('result');
+
+            if (temperature >= 30 && temperature <= 45) {
+                let message = '';
+                let color = '';
+
+                if (temperature < 35) {
+                    message = 'Temperatura baja. Consulte a un médico.';
+                    color = '#0000FF'; // Azul para temperatura baja
+                } else if (temperature >= 35 && temperature < 37.5) {
+                    message = 'Temperatura normal.';
+                    color = '#008000'; // Verde para temperatura normal
+                } else if (temperature >= 37.5 && temperature < 38) {
+                    message = 'Fiebre baja.';
+                    color = '#FFA500'; // Naranja para fiebre baja
+                } else if (temperature >= 38 && temperature < 39.5) {
+                    message = 'Fiebre. Considere tomar medicamentos.';
+                    color = '#FF4500'; // Naranja rojizo para fiebre
+                } else {
+                    message = 'Fiebre alta. Consulte a un médico inmediatamente.';
+                    color = '#FF0000'; // Rojo para fiebre alta
+                }
+
+                result.innerHTML = `Su temperatura es: ${temperature.toFixed(1)}°C<br>${message}`;
+                result.style.color = color;
+                result.style.border = `2px solid ${color}`;
+                result.style.display = 'block';
+            } else {
+                result.innerHTML = 'Por favor, ingrese una temperatura válida entre 30°C y 45°C.';
+                result.style.color = '#006400';
+                result.style.border = '2px solid #006400';
+                result.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
